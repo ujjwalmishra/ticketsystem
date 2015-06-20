@@ -1,0 +1,37 @@
+<%= form_for @ticket do |t| %>
+ 
+  <% if @ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@ticket.errors.count, "error") %> prohibited
+        this ticket from being saved:
+      </h2>
+      <ul>
+        <% @ticket.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+ 
+  <p>
+  <%= t.label :name %>
+  <%= t.text_field :name %>
+</p>  
+<p>
+<%= t.label :issue_id %>
+<%= t.select(:issue_id) do %>
+  <% [['Critical', 1], ['Urgent', 2], ['Important', 3]].each do |c| -%>
+    <%= content_tag(:option, c.first, value: c.last) %>
+  <% end %>
+<% end %>
+</p>
+<p>
+  <%= t.label :issue_description %>
+  <%= t.text_area :issue_description %> 
+</p>
+
+<p><%= t.submit %> </p>
+
+ 
+<% end %>
